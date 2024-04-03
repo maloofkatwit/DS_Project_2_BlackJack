@@ -35,7 +35,53 @@ package edu.wit.scds.ds.list.app ;
 public class Hand extends Pile
     {
     // TODO implement this
+    /**
+     * Constructs an empty hand.
+     */
+    public Hand() {
+        super();
+    }
+    
+    /**
+     * Calculates the total score of the hand in Blackjack,
+     * where face cards are 10 and Aces can be 1 or 11.
+     *
+     * @return The total score of the hand.
+     */
+    public int calculateScore() 
+        {
+        // TODO
+        return 0;
+        }
+    /**
+     * Sets all cards in the collection to be face up
+     */
+    public void setAllFaceUP()
+        {
+        //TODO
+        }
+    
+    
 
+    /**
+     * Checks if the hand is busted (i.e., total score exceeds 21).
+     *
+     * @return True if the hand is busted, false otherwise.
+     */
+    public boolean isBusted() {
+        //TODO
+        return false;
+    }
+    
+    /**
+     * Clear the hand of cards
+     * 
+     * @return the list of cards cleared from the hand
+     */
+    public List<Card> clearHand() 
+        {
+        return new ArrayList<>();
+        }
 
     /**
      * (optional) test driver
