@@ -45,6 +45,46 @@ public class Pile
 
 
     // TODO implement this
+   /**
+     * Adds a card to the pile
+     * 
+     * @param aCard the card to be added to the pile
+     */
+    public void addCard(Card aCard)
+        {
+        
+        }
+    
+    /**
+     * Adds a list of cards to the pile
+     * 
+     * @param listOfCards the cards to be added to the pile
+     */
+    public void addCards(List<Card> listOfCards)
+        {
+        
+        }
+    /**
+     * Removes and returns the first card from the pile
+     * 
+     * @return the card that was removed from the pile. If the hand is empty, this method will throw an IndexOutOfBoundsException
+     */
+    public Card disCard()
+        {
+        return new Card();
+        }
+
+    
+
+    /**
+     * Returns a list of cards in the pile
+     *
+     * @return the list of cards in the pile
+     */
+    public List<Card> getCards() 
+        {
+        return this.cards;
+        }
 
 
     @Override
