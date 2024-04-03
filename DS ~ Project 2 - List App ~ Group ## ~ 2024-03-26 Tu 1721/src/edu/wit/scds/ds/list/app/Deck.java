@@ -35,7 +35,33 @@ package edu.wit.scds.ds.list.app;
 public class Deck extends Pile
 	{
 	// TODO implement this
-
+	/**
+	 * Instantiate a Deck of Cards
+	 */
+	public Deck() 
+	    {
+	    super();
+	    
+	    }
+	
+	
+	/**
+	 * Draws the top card from the deck
+	 * 
+	 * @return the top card from the deck. If the deck is empty, this method will throw an exception.
+	 */
+	public Card draw()
+    	{
+    	return new Card();
+    	}
+	
+	/**
+	 * Shuffles the cards in the deck
+	 */
+	public void shuffle()
+    	{
+    	
+    	}
 
 	/**
      * (optional) test driver
