@@ -51,7 +51,7 @@ import java.util.Objects ;
  *     <li>revise {@code toString()} for greater formatting flexibility and control
  *     </ul><br>
  *
- * @author Your Name    // TODO
+ * @author Ibukunoulwa Folajimi    // DONE
  *
  * @version 2.3.0 2024-03-26 Modifications for use for our game
  */
@@ -399,6 +399,30 @@ public class Card implements Comparable<Card>
         return false ;
 
         }	// end equals()
+
+    // DONE Additional methods here
+    /**
+     * Returns the {@code rank} of the card
+     * 
+     * @return the Rank of the card
+     */
+    public Rank getRank()
+        {
+        return this.rank ;
+
+        }
+    
+    // DONE Additional methods here
+    /**
+     * Returns the {@code suit} of the card
+     * 
+     * @return the Suit of the card
+     */
+    public Suit getSuit()
+        {
+        return this.suit ;
+
+        }
 
     @Override
     public int hashCode()
