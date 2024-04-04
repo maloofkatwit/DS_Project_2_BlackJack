@@ -4,23 +4,24 @@
  * Comp 2000 - Data Structures
  * Lab: List application - card game
  * Spring, 2024
- *
+ * 
  * Usage restrictions:
- *
+ * 
  * You may use this code for exploration, experimentation, and furthering your
  * learning for this course. You may not use this code for any other
  * assignments, in my course or elsewhere, without explicit permission, in
  * advance, from myself (and the instructor of any other course).
- *
+ * 
  * Further, you may not post (including in a public repository such as on github)
- * nor otherwise share this code with anyone other than current students in my
- * sections of this course. Violation of these usage restrictions will be considered
+ * nor otherwise share this code with anyone other than current students in my 
+ * sections of this course. Violation of these usage restrictions will be considered 
  * a violation of the Wentworth Institute of Technology Academic Honesty Policy.
  *
  * Do not remove this notice.
  *
  * @formatter:on
  */
+
 
 package edu.wit.scds.ds.list.app ;
 
@@ -30,24 +31,23 @@ import java.util.List ;
 /**
  * Representation of a hand of cards
  *
- * @author Kaleb Maloof // TODO
+ * @author Kaleb Maloof // DONE
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
 public class Hand extends Pile
     {
-
-    // TODO implement this
+    
+    // DONE implement this
+    
     /**
      * Constructs an empty hand.
      */
-    public Hand()
+    public Hand() 
         {
-        super() ;
-
+        super();
         }
-
-
+    
     /**
      * Calculates the total score of the hand in Blackjack,
      * where face cards are 10 and Aces can be 1 or 11.
@@ -61,7 +61,7 @@ public class Hand extends Pile
 
         for (Card card : this.cards) 
             {
-            int value = card.getRank().getPoints();
+            int value = card.getPoints();
             if (value == 11) 
                 { // Ace
                 aceCount++;
@@ -78,8 +78,6 @@ public class Hand extends Pile
   
         return score;
         }
-
-
     /**
      * Sets all cards in the collection to be face up
      */
@@ -90,42 +88,42 @@ public class Hand extends Pile
             card.reveal() ;
 
             }
-
         }
-
+    
+    
 
     /**
-     * Checks if the hand is busted (i.e., total score exceeds 21).
+     * Checks if the hand is busted (i.e., total score exceeds 21)
      *
-     * @return True if the hand is busted, false otherwise.
+     * @return true if the hand is busted, false otherwise
      */
-    public boolean isBusted()
+    public boolean isBusted() 
         {
-
-        return calculateScore() > 21 ;
-
+        return calculateScore() > 21;
         }
-
-
+    
     /**
      * Clear the hand of cards
-     *
+     * 
      * @return the list of cards cleared from the hand
      */
-    public List<Card> clearHand()
+    public List<Card> clearHand() 
         {
-        ArrayList<Card> discards = new ArrayList<>() ;
-
-        for ( Card card : getCards() )
+        // list to collect discarded cards
+        List<Card> discardedCards = new ArrayList<>();
+        while (!this.cards.isEmpty())
             {
-            discards.add( disCard() ) ;
-
+            // remove one card from hand
+            Card discardedCard = this.disCard();
+            // set it face down
+            discardedCard.setFaceUp( false );
+            // add to the list of dicarded cards
+            discardedCards.add( discardedCard );
             }
+        //return collected discard
+        return discardedCards;
 
-        return discards ;
-
-        }
-
+         }
 
     /**
      * (optional) test driver
