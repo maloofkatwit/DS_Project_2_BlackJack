@@ -33,7 +33,7 @@ package edu.wit.scds.ds.list.app ;
  * @version 1.0.0 2016-03-16 initial version
  * @version 1.1.0 2022-11-06 add switches for standard vs alternate points and order
  *
- * @author Kaleb Maloof    // TODO
+ * @author Kaleb Maloof    // DONE
  *
  * @version 1.2.0 2024-03-26 Modifications for use for our game
  */
