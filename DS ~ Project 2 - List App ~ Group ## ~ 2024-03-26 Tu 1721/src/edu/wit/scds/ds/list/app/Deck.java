@@ -30,27 +30,26 @@ import java.util.Collections ;
 /**
  * Representation of a deck of cards
  *
- * @author Kaleb Maloof // TODO
+ * @author Kaleb Maloof // DONE
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
 public class Deck extends Pile
 	{
-	// TODO implement this
+	// DONE implement this
 	/**
 	 * Instantiate a Deck of Cards
 	 */
 	public Deck() 
 	    {
 	    super();
-	    for(Rank rank: Rank.values()) 
-	        {
-	            for(Suit suit: Suit.values()) 
-	                {
-	                    this.cards.add(new Card(suit,rank));
-	                }
-	        }
-	    
+        for(Rank rank: Rank.values()) 
+            {
+                for(Suit suit: Suit.values()) 
+                    {
+                        this.cards.add(new Card(suit,rank));
+                    }
+            }
 	    }
 	
 	
@@ -69,8 +68,9 @@ public class Deck extends Pile
 	 */
 	public void shuffle()
     	{
-    	    Collections.shuffle( this.cards );
+    	Collections.shuffle( this.cards );
     	}
+	
 
 	/**
      * (optional) test driver
@@ -81,17 +81,17 @@ public class Deck extends Pile
 	public static void main( String[] args )
 		{
         // OPTIONAL for testing and debugging
-		
-		Deck deck = new Deck();
-		for(Card card: deck.getCards())
-		    {
-		        card.reveal();
-		    }
-		System.out.println(deck.toString());
-		
-		deck.shuffle();
-		
-		System.out.println(deck.toString());
+
+        Deck deck = new Deck();
+        for(Card card: deck.getCards())
+            {
+                card.reveal();
+            }
+        System.out.println(deck.toString());
+
+        deck.shuffle();
+
+        System.out.println(deck.toString());	     
 		}	// end main()
 
 	}	// end class Deck
