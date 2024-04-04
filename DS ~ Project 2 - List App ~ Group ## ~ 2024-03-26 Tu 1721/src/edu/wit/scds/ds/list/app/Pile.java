@@ -33,7 +33,7 @@ import java.util.List ;
  * <p>
  * the bottom card is at position 0
  *
- * @author Kaleb Maloof    // TODO
+ * @author Kaleb Maloof // DONE
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
@@ -45,24 +45,24 @@ public class Pile
     protected List<Card> cards ;    // instantiate an ArrayList or LinkedList in the constructor
 
 
-    
+    // DONE implement this
+   
     /**
-     * no args constructor
-     * 
+     * Constructs an empty pile of cards
      */
-    public Pile() 
+    public Pile()
         {
-            this.cards =  new ArrayList<Card>();
+        this.cards = new ArrayList<>();
         }
     
-   /**
+    /**
      * Adds a card to the pile
      * 
      * @param aCard the card to be added to the pile
      */
     public void addCard(Card aCard)
         {
-          this.cards.add( aCard );
+        this.cards.add( aCard );
         }
     
     /**
@@ -72,19 +72,21 @@ public class Pile
      */
     public void addCards(List<Card> listOfCards)
         {
-            for(Card card: listOfCards)
-                {
-                  this.cards.add(card);
-                }
+        for(Card card: listOfCards)
+            {
+              this.cards.add(card);
+            }
         }
     /**
      * Removes and returns the first card from the pile
      * 
      * @return the card that was removed from the pile. If the hand is empty, this method will throw an IndexOutOfBoundsException
+     * 
      */
     public Card disCard()
         {
-            return this.cards.remove(0);
+        // remove from front end of the list
+        return this.cards.remove( 0 );
         }
 
     
@@ -98,7 +100,6 @@ public class Pile
         {
         return this.cards;
         }
-
 
     @Override
     public String toString()            // debugging aid
