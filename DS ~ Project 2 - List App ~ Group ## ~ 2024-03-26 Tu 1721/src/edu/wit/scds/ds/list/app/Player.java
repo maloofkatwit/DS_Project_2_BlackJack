@@ -25,21 +25,35 @@
 
 package edu.wit.scds.ds.list.app ;
 
+import java.util.ArrayList ;
+import java.util.List ;
+
 /**
  * Representation of a player
  *
- * @author Ibukunoulwa Folajimi    // TODO
+ * @author Ibukunoluwa Folajimi    // DONE
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
 public class Player
     {
-    // TODO implement this
-    private String name;
-    private List<Hand> hands;
-    private List<Integer> bets;
-    private int balance;
-    private boolean splitHand;
+    // DONE implement this
+    
+    /*
+     * data fields
+     */
+    
+    private String name; // Name of the player
+    private List<Hand> hands; // List of hands the player holds
+    private List<Integer> bets; // List of bets placed by the player
+    private int balance; // Player's balance
+    private boolean splitHand; // Flag indicating if the player has split their hand
+    
+    
+    /*
+     * Constructors
+     */
+    
     
     /**
      * Constructs a new player with an empty hand and a default bet
@@ -51,22 +65,31 @@ public class Player
         this.hands = new ArrayList<>();
         // Initialize with one hand
         this.hands.add(new Hand());
-        this.bets = new ArrayList<>();
         // Initialize with a default bet of 0
+        this.bets = new ArrayList<>();
         this.bets.add(0);
         
         this.splitHand = false;
         this.balance = 2500;
         }
+    
+    /*
+     * Utility methods
+     */
+    
+    
     /**
      * Adds a card to the beginning hand of the player
      * @param card the card to add to hand
      */
     public void addCard(Card card) 
         {
+        // When a player receives a card, it is set face up
         card.setFaceUp( true );
         this.hands.get(0).addCard(card);
         }
+    
+    
     /**
      * Adds a card to the specified hand of the player
      * @param handIndex the index of the hand to add a card to
@@ -74,10 +97,13 @@ public class Player
      */
     public void addCard(int handIndex, Card card) 
         {
-        validateHandIndex(handIndex);
+        validateHandIndex(handIndex);// Ensure the hand index is valid
+        // When a player receives a card, it is set face up
         card.setFaceUp( true );
         this.hands.get(handIndex).addCard(card);
         }
+    
+    
     /**
      * Allows the player to add a card (hit) for a specified hand
      *
@@ -87,8 +113,8 @@ public class Player
      */
     public void hit(int handIndex, Card card) 
         {
-        validateHandIndex(handIndex);
-        addCard(handIndex, card);
+        validateHandIndex(handIndex);// Ensure the hand index is valid
+        addCard(handIndex, card);// Add the card to the specified hand
         }
     
     /**
@@ -98,10 +124,10 @@ public class Player
      */
     public void placeBet(int handIndex, int amount) 
         {
-        validateHandIndex(handIndex);
-        validateBetAmount(amount);
-        this.bets.set(handIndex, amount);
-        this.balance -= amount;
+        validateHandIndex(handIndex);// Check for valid hand index
+        validateBetAmount(amount);// Ensure bet does not exceed player's balance
+        this.bets.set(handIndex, amount);// Place the bet on the specified hand
+        this.balance -= amount;// Deduct the bet amount from the player's balance
         }
     
     /**
@@ -113,11 +139,16 @@ public class Player
     public void doubleDown(int handIndex, Card card) 
         {
         validateHandIndex(handIndex);
-        Hand hand = this.hands.get(handIndex);
-        hand.addCard(card);
+        // Retrieve the specified hand
+        // and add a card to the hand as part of doubling down
+        hit(handIndex,card);
+        // Get the current bet for the hand
+        // and double the bet on the hand
         int currentBet = this.bets.get(handIndex);
         validateBetAmount(currentBet);
         this.bets.set(handIndex, currentBet * 2); // Double the bet
+        // Deduct the original bet amount from 
+        // player's balance as part of doubling down
         this.balance -= currentBet;  
         }
     
@@ -134,7 +165,8 @@ public class Player
         if (this.hands.size() == 1) 
             { // Only consider splitting the first hand
             List<Card> cards = this.hands.get(0).getCards();
-            if (cards.size() == 2 && cards.get(0).getRank().getPoints() == cards.get(1).getRank().getPoints()) 
+            // Check for exactly two cards in the first hand of the same rank
+            if (cards.size() == 2 && cards.get(0).getPoints() == cards.get(1).getPoints()) 
                 {
                 return true;
                 }
@@ -149,11 +181,14 @@ public class Player
      */
     public boolean splitHand() 
         {
-        if (canSplit()) 
+        if (canSplit()) // Check if the initial hand meets the splitting requirements 
             {
+            // Remove one card from the original hand
             Card cardToMove = this.hands.get(0).disCard();
             if (cardToMove != null)
                 {
+                // Create a new hand and bet in the lists
+                // and add the removed card to the new hand
                 Hand newHand = new Hand();
                 newHand.addCard( cardToMove );
                 this.hands.add( newHand );
@@ -173,17 +208,21 @@ public class Player
      */
     public List<Card> resetHand() 
         {
-        List<Card> disCardedCards = new ArrayList<>();
+        // Create a list to hold discarded cards
+        List<Card> discardedCards = new ArrayList<>();
+        
+        // Discard cards in each hand into the list of disCardedCards
         for(Hand hand: this.hands)
             {
-            disCardedCards.addAll( hand.clearHand());
+            discardedCards.addAll( hand.clearHand());
             }
+        //Reset the players hands and bets
         this.hands.clear();
         this.hands.add(new Hand());
         this.bets.clear();
         this.bets.add(0);
         setSplitHand(false );
-        return disCardedCards;
+        return discardedCards;
         }
     
     /**
@@ -193,6 +232,7 @@ public class Player
      */
     public boolean hasBust() 
         {
+        // check if any of the player's hands has bust
         for (Hand hand : this.hands) 
             {
             if (hand.isBusted()) 
@@ -312,6 +352,12 @@ public class Player
             return this.name ;
 
         }
+    
+    /*
+     * private utility methods
+     */
+    
+    
     /**
      * Validates the specified hand index.
      * 
@@ -343,8 +389,8 @@ public class Player
             }
         }
     
-
-
+    
+    
     /**
      * (optional) test driver
      *
@@ -354,7 +400,8 @@ public class Player
     public static void main( final String[] args )
         {
         // OPTIONAL for testing and debugging
-
+        
         }	// end main()
+
 
     }	// end class Player
