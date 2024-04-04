@@ -51,7 +51,7 @@ import java.util.Objects ;
  *     <li>revise {@code toString()} for greater formatting flexibility and control
  *     </ul><br>
  *
- * @author Ibukunoulwa Folajimi    // DONE
+ * @author Ibukunoluwa Folajimi    // DONE
  *
  * @version 2.3.0 2024-03-26 Modifications for use for our game
  */
@@ -83,19 +83,6 @@ public class Card implements Comparable<Card>
     /*
      * constructors
      */
-
-
-    /**
-     * Initializes a card with no suit (e.g., a joker)
-     *
-     * @param theRank
-     *     this card's rank
-     */
-    public Card( final Rank theRank )
-        {
-        this( Suit.NONE, theRank ) ;
-
-        }   // end 1-arg constructor
 
 
     /**
@@ -399,30 +386,19 @@ public class Card implements Comparable<Card>
         return false ;
 
         }	// end equals()
-
-    // DONE Additional methods here
+   
     /**
-     * Returns the {@code rank} of the card
+     * Returns the points the card is worth
      * 
-     * @return the Rank of the card
+     * @return the points the card is worth
      */
-    public Rank getRank()
+    public int getPoints()
         {
-        return this.rank ;
+        return this.rank.getPoints() ;
 
         }
+
     
-    // DONE Additional methods here
-    /**
-     * Returns the {@code suit} of the card
-     * 
-     * @return the Suit of the card
-     */
-    public Suit getSuit()
-        {
-        return this.suit ;
-
-        }
 
     @Override
     public int hashCode()
@@ -462,22 +438,9 @@ public class Card implements Comparable<Card>
 
         for ( final Suit suit : suits )
             {
-
-            // skip placeholder suit
-           /* if ( Suit.NONE.equals( suit ) )
-                {
-                continue ;
-                }
-           */
             for ( final Rank rank : ranks )
                 {
 
-                // skip non-playing card(s) - Joker
-               /* if ( Rank.JOKER.equals( rank ) )
-                    {
-                    continue ;
-                    }
-                */
                 // build a card
                 final Card newCard = new Card( suit, rank ) ;
                 System.out.printf( " %s", newCard ) ;
@@ -583,5 +546,9 @@ public class Card implements Comparable<Card>
         System.out.printf( "%s.equals(%s) = %b (rank only)%n", card1, card2, card1.equals( card2 ) ) ;
 
         }	// end main()
+
+
+
+
 
     }	// end class Card
