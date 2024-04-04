@@ -25,6 +25,7 @@
 
 package edu.wit.scds.ds.list.app ;
 
+import java.util.ArrayList ;
 import java.util.List ;
 
 /**
@@ -32,7 +33,7 @@ import java.util.List ;
  * <p>
  * the bottom card is at position 0
  *
- * @author Your Name    // TODO
+ * @author Kaleb Maloof    // TODO
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
@@ -44,7 +45,16 @@ public class Pile
     protected List<Card> cards ;    // instantiate an ArrayList or LinkedList in the constructor
 
 
-    // TODO implement this
+    
+    /**
+     * no args constructor
+     * 
+     */
+    public Pile() 
+        {
+            this.cards =  new ArrayList<Card>();
+        }
+    
    /**
      * Adds a card to the pile
      * 
@@ -52,7 +62,7 @@ public class Pile
      */
     public void addCard(Card aCard)
         {
-        
+          this.cards.add( aCard );
         }
     
     /**
@@ -62,7 +72,10 @@ public class Pile
      */
     public void addCards(List<Card> listOfCards)
         {
-        
+            for(Card card: listOfCards)
+                {
+                  this.cards.add(card);
+                }
         }
     /**
      * Removes and returns the first card from the pile
@@ -71,7 +84,7 @@ public class Pile
      */
     public Card disCard()
         {
-        return new Card();
+            return this.cards.remove(0);
         }
 
     

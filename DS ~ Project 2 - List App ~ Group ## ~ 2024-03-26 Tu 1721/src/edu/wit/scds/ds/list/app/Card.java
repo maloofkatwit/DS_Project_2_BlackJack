@@ -464,20 +464,20 @@ public class Card implements Comparable<Card>
             {
 
             // skip placeholder suit
-            if ( Suit.NONE.equals( suit ) )
+           /* if ( Suit.NONE.equals( suit ) )
                 {
                 continue ;
                 }
-
+           */
             for ( final Rank rank : ranks )
                 {
 
                 // skip non-playing card(s) - Joker
-                if ( Rank.JOKER.equals( rank ) )
+               /* if ( Rank.JOKER.equals( rank ) )
                     {
                     continue ;
                     }
-
+                */
                 // build a card
                 final Card newCard = new Card( suit, rank ) ;
                 System.out.printf( " %s", newCard ) ;

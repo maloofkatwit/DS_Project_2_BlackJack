@@ -54,7 +54,7 @@ package edu.wit.scds.ds.list.app ;
  *     </ul>
  * @version 4.2.0 2022-11-06 add switch for standard vs alternate priority
  *
- * @author Your Name    // TODO
+ * @author Kaleb Maloof    // TODO
  *
  * @version 4.3.0 2024-03-26 Modifications for use for our game
  */
@@ -71,8 +71,6 @@ public enum Suit
     HEARTS      (   "Hearts",       "♥",        "red",      2,        3 )
     , /** Clubs suit */
     CLUBS       (   "Clubs",        "♣",        "black",    1,        4 )
-    , /** no suit - for cards such as Joker */
-    NONE        (   "",             "",         "",         5,        5 )
     ;
 // @formatter:on
 

@@ -25,10 +25,12 @@
 
 package edu.wit.scds.ds.list.app;
 
+import java.util.Collections ;
+
 /**
  * Representation of a deck of cards
  *
- * @author Your Name // TODO
+ * @author Kaleb Maloof // TODO
  *
  * @version 1.0.0 2024-03-26 Initial implementation
  */
@@ -41,6 +43,13 @@ public class Deck extends Pile
 	public Deck() 
 	    {
 	    super();
+	    for(Rank rank: Rank.values()) 
+	        {
+	            for(Suit suit: Suit.values()) 
+	                {
+	                    this.cards.add(new Card(suit,rank));
+	                }
+	        }
 	    
 	    }
 	
@@ -52,7 +61,7 @@ public class Deck extends Pile
 	 */
 	public Card draw()
     	{
-    	return new Card();
+    	return this.disCard();
     	}
 	
 	/**
@@ -60,7 +69,7 @@ public class Deck extends Pile
 	 */
 	public void shuffle()
     	{
-    	
+    	    Collections.shuffle( this.cards );
     	}
 
 	/**
@@ -72,7 +81,17 @@ public class Deck extends Pile
 	public static void main( String[] args )
 		{
         // OPTIONAL for testing and debugging
-
+		
+		Deck deck = new Deck();
+		for(Card card: deck.getCards())
+		    {
+		        card.reveal();
+		    }
+		System.out.println(deck.toString());
+		
+		deck.shuffle();
+		
+		System.out.println(deck.toString());
 		}	// end main()
 
 	}	// end class Deck

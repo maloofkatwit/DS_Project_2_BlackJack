@@ -33,7 +33,7 @@ package edu.wit.scds.ds.list.app ;
  * @version 1.0.0 2016-03-16 initial version
  * @version 1.1.0 2022-11-06 add switches for standard vs alternate points and order
  *
- * @author Your Name    // TODO
+ * @author Kaleb Maloof    // TODO
  *
  * @version 1.2.0 2024-03-26 Modifications for use for our game
  */
@@ -68,8 +68,6 @@ public enum Rank
     QUEEN   (   "Queen",        "Q",        10,         10,         12,         10 )
     , /** King */
     KING    (   "King",         "K",        10,         10,         13,         10 )
-    , /** Joker */
-    JOKER   (   "Joker",        "R",        0,          0,          99,         99 )
     ;
 // @formatter:on
 
