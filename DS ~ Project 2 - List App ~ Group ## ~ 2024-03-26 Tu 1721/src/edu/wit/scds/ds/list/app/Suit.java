@@ -54,7 +54,7 @@ package edu.wit.scds.ds.list.app ;
  *     </ul>
  * @version 4.2.0 2022-11-06 add switch for standard vs alternate priority
  *
- * @author Kaleb Maloof    // TODO
+ * @author Kaleb Maloof    // DONE
  *
  * @version 4.3.0 2024-03-26 Modifications for use for our game
  */
