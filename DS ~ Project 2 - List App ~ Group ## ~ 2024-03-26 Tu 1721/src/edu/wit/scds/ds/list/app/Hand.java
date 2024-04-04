@@ -49,22 +49,34 @@ public class Hand extends Pile
 
 
     /**
-     * Calculates the total score of the hand in Blackjack, where face cards are 10
-     * and Aces can be 1 or 11.
+     * Calculates the total score of the hand in Blackjack,
+     * where face cards are 10 and Aces can be 1 or 11.
      *
      * @return The total score of the hand.
      */
-    public int calculateScore()
+    public int calculateScore() 
         {
-        int score = 0 ;
-        for ( Card card : getCards() )
-            {
-            score += card.getRank().getPoints() ;
+        int score = 0;
+        int aceCount = 0;
 
+        for (Card card : this.cards) 
+            {
+            int value = card.getRank().getPoints();
+            if (value == 11) 
+                { // Ace
+                aceCount++;
+                }
+            score += value;
             }
 
-        return score ;
-
+        // Adjust for Aces if score is over 21
+        while (score > 21 && aceCount > 0) 
+            {
+            score -= 10; // Convert an Ace from 11 to 1
+            aceCount--;
+            }
+  
+        return score;
         }
 
 
