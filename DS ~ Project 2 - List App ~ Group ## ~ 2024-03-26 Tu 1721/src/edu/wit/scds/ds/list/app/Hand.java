@@ -62,9 +62,10 @@ public class Hand extends Pile
         for (Card card : this.cards) 
             {
             int value = card.getPoints();
-            if (value == 11) 
+            if (value == 1) 
                 { // Ace
                 aceCount++;
+                value=11;
                 }
             score += value;
             }
