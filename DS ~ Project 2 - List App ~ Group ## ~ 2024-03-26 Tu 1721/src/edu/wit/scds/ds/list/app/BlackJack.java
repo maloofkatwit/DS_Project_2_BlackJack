@@ -1,22 +1,17 @@
 
 package edu.wit.scds.ds.list.app ;
 
-/**
- * @author Tyger Maguire
- * 
- * @version 1.0.0 2024-04-04 Initial implementation
- */
-
 import java.util.List ;
 import java.util.Scanner ;
 import java.util.ArrayList ;
 
+/**
+ * @author Tyger Maguire
+ * 
+ * @version 1.0.0 2024-04-05 Initial implementation
+ */
 public class BlackJack
     {
-
-    /**
-     * 
-     */
 
     /**
      * @param args
@@ -27,7 +22,7 @@ public class BlackJack
         Deck gameDeck = new Deck() ;
         Player dealer = new Player( "Dealer" ) ;
 
-        Scanner Game = new Scanner( System.in ) ;  // Create a Scanner object
+        Scanner game = new Scanner( System.in ) ;  // Create a Scanner object
         System.out.println( "How many will be playing today: " ) ;
         char playerNumber = 'N' ;
         boolean firstTime = true ;
@@ -41,7 +36,7 @@ public class BlackJack
 
             try
                 {
-                playerNumber = Game.nextLine().charAt( 0 ) ;
+                playerNumber = game.nextLine().charAt( 0 ) ;
 
                 }
             catch ( Exception e )
@@ -57,7 +52,7 @@ public class BlackJack
         for ( int i = 0 ; i < playerNumber - '0' ; i++ )
             {
             System.out.println( "please input a player name" ) ;
-            String playerName = Game.nextLine() ;
+            String playerName = game.nextLine() ;
 
             pl.add( new Player( playerName + " " ) ) ;
 
@@ -83,7 +78,7 @@ public class BlackJack
 
                     try
                         {
-                        playerBet = Integer.parseInt( Game.nextLine() ) ;
+                        playerBet = Integer.parseInt( game.nextLine() ) ;
 
                         }
                     catch ( Exception e )
@@ -148,7 +143,7 @@ public class BlackJack
 
                             }
 
-                        answer = Game.nextLine() ;
+                        answer = game.nextLine() ;
                         firstTime = false ;
 
                         }
@@ -156,15 +151,16 @@ public class BlackJack
                     if ( answer.equals( "y" ) )
                         {
                         pl.get( i ).splitHand() ;
-                        pl.get( i ).placeBet( 0, pl.get( i ).getBet( 0 ) ) ;
+                        pl.get( i ).placeBet( 1, pl.get( i ).getBet( 0 ) ) ;
 
                         }
 
                     }
 
-                else if ( pl.get( i ).getHand( 0 ).calculateScore() == 9 ||
-                          pl.get( i ).getHand( 0 ).calculateScore() == 10 ||
-                          pl.get( i ).getHand( 0 ).calculateScore() == 11 )
+                else if ( ( pl.get( i ).getHand( 0 ).calculateScore() == 9 ||
+                            pl.get( i ).getHand( 0 ).calculateScore() == 10 ||
+                            pl.get( i ).getHand( 0 ).calculateScore() == 11 ) &&
+                          pl.get( i ).getBet( 0 ) <= pl.get( i ).getBalance() )
                     {
                     System.out.println( pl.get( i ).getName() +
                                         ", would you like to double down?" ) ;
@@ -178,7 +174,8 @@ public class BlackJack
 
                             }
 
-                        answer = Game.nextLine() ;
+                        firstTime = false ;
+                        answer = game.nextLine() ;
 
                         }
 
@@ -211,7 +208,7 @@ public class BlackJack
                             turn = false ;
 
                             }
-                        else if ( doubled == true )
+                        else if ( doubled )
                             {
                             turn = false ;
 
@@ -236,8 +233,8 @@ public class BlackJack
 
                                     }
 
-                                answer = Game.nextLine() ;
-
+                                answer = game.nextLine() ;
+                                firstTime=false;
                                 }
 
                             if ( answer.equals( "hit" ) )
@@ -263,7 +260,7 @@ public class BlackJack
 
             boolean dealerTurn = true ;
             dealer.addCard( hiddenCard ) ;
-            while ( dealerTurn == true )
+            while ( dealerTurn)
                 {
                 System.out.println( "dealer hand: " + dealer.getHand( 0 ).toString() ) ;
                 if ( dealer.getHand( 0 ).calculateScore() < 17 )
@@ -283,8 +280,9 @@ public class BlackJack
                 {
                 for ( int ii = 0 ; ii < pl.get( i ).getHands().size() ; ii++ )
                     {
-                    if ( pl.get( i ).getHand( ii ).calculateScore() >
-                         dealer.getHand( 0 ).calculateScore() &&
+                    if ( ( pl.get( i ).getHand( ii ).calculateScore() >
+                           dealer.getHand( 0 ).calculateScore() ||
+                           dealer.getHand( 0 ).calculateScore() > 21 ) &&
                          pl.get( i ).getHand( ii ).calculateScore() <= 21 )
                         {
                         if ( pl.get( i ).getHand( ii ).calculateScore() == 21 )
@@ -302,27 +300,30 @@ public class BlackJack
                         else
                             {
                             System.out.println( pl.get( i ).getName() + "has won " +
-                                                (int) ( pl.get( i ).getBet( ii ) ) + " points" ) ;
+                                                ( pl.get( i ).getBet( ii ) ) + " points" ) ;
 
                             pl.get( i )
-                              .increaseBalance( (int) ( pl.get( i ).getBet( ii ) +
-                                                        pl.get( i ).getBet( ii ) ) ) ;
+                              .increaseBalance( pl.get( i ).getBet( ii ) +
+                                                pl.get( i ).getBet( ii ) ) ;
                             System.out.println( pl.get( i ).getName() + "has " +
                                                 pl.get( i ).getBalance() + " points remaining " ) ;
 
                             }
 
                         }
-                    else if ( pl.get( i ).getHand( ii ).calculateScore() ==
-                              dealer.getHand( 0 ).calculateScore() &&
-                              pl.get( i ).getHand( ii ).calculateScore() <= 21 )
+                    else if ( ( pl.get( i ).getHand( ii ).calculateScore() ==
+                                dealer.getHand( 0 ).calculateScore() &&
+                                pl.get( i ).getHand( ii ).calculateScore() <= 21 ) ||
+                              ( pl.get( i ).getHand( ii ).calculateScore() > 21 &&
+                                dealer.getHand( 0 ).calculateScore() > 21 ) )
                         {
                         System.out.println( pl.get( i ).getName() + "has tied " ) ;
-                        pl.get( i ).increaseBalance( (int) ( pl.get( i ).getBet( ii ) ) ) ;
+                        pl.get( i ).increaseBalance( ( pl.get( i ).getBet( ii ) ) ) ;
                         System.out.println( pl.get( i ).getName() + "has " +
                                             pl.get( i ).getBalance() + " points remaining " ) ;
 
                         }
+
                     else
                         {
                         System.out.println( pl.get( i ).getName() + "has lost " +
@@ -381,7 +382,7 @@ public class BlackJack
 
                         }
 
-                    answer = Game.nextLine() ;
+                    answer = game.nextLine() ;
 
                     }
 
@@ -403,6 +404,7 @@ public class BlackJack
             if ( pl.size() == 0 )
                 {
                 System.out.println( "No more players remain, game has ended" ) ;
+                gamePlay = false ;
 
                 }
             else
@@ -411,14 +413,11 @@ public class BlackJack
 
                 }
 
-            if ( pl.size() <= 0 )
-                {
-                gamePlay = false ;
-
-                }
-
             }
-        System.out.println("Thanks for playing");
+
+        System.out.println( "Thanks for playing" ) ;
+        game.close() ;
+
         }
 
     }
