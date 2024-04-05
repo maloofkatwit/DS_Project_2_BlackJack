@@ -100,7 +100,6 @@ public class BlackJack
 
                 }
 
-            System.out.println( pl.size() ) ;
             for ( int i = 0 ; i < pl.size() ; i++ )
                 {
                 pl.get( i ).addCard( 0, gameDeck.draw() ) ;
@@ -126,7 +125,7 @@ public class BlackJack
             for ( int i = 0 ; i < pl.size() ; i++ )
                 {
                 boolean doubled = false ;
-                
+
                 if ( pl.get( i ).getHand( 0 ).calculateScore() == 21 )
                     {
                     System.out.println( "congradualtions " + pl.get( i ).getName() +
@@ -154,7 +153,7 @@ public class BlackJack
 
                         }
 
-                    if ( answer.equals(  "y") )
+                    if ( answer.equals( "y" ) )
                         {
                         pl.get( i ).splitHand() ;
                         pl.get( i ).placeBet( 0, pl.get( i ).getBet( 0 ) ) ;
@@ -185,24 +184,28 @@ public class BlackJack
 
                     if ( answer.equals( "y" ) )
                         {
-                        pl.get( i ).doubleDown( 0, gameDeck.draw() ) ;
+                        Card fCard = gameDeck.draw() ;
+                        fCard.setFaceUp( true ) ;
+                        pl.get( i ).doubleDown( 0, fCard ) ;
                         doubled = true ;
 
                         }
 
                     }
+
                 for ( int ii = 0 ; ii < pl.get( i ).getHands().size() ; ii++ )
                     {
-                    //System.out.println(pl.get( i ).getHands().size() );
+                    // System.out.println(pl.get( i ).getHands().size() );
 
                     firstTime = true ;
                     boolean turn = true ;
 
                     while ( turn )
                         {
-                        System.out.println( pl.get( i ).getHand( ii ).toString() ) ;
+                        System.out.println( pl.get( i ).getName() + ": " +
+                                            pl.get( i ).getHand( ii ).toString() ) ;
 
-                        if ( firstTime && pl.get( i ).getHand( i ).calculateScore() == 21 )
+                        if ( firstTime && pl.get( i ).getHand( ii ).calculateScore() == 21 )
                             {
 
                             turn = false ;
@@ -215,7 +218,7 @@ public class BlackJack
                             }
                         else if ( pl.get( i ).getHand( ii ).isBusted() )
                             {
-                            Syst
+                            System.out.println( pl.get( i ).getName() + " has busted" ) ;
                             turn = false ;
 
                             }
@@ -237,12 +240,12 @@ public class BlackJack
 
                                 }
 
-                            if ( answer.equals ("hit") )
+                            if ( answer.equals( "hit" ) )
                                 {
                                 pl.get( i ).hit( ii, gameDeck.draw() ) ;
 
                                 }
-                            else if ( answer.equals ("stand") )
+                            else if ( answer.equals( "stand" ) )
                                 {
                                 turn = false ;
 
@@ -262,7 +265,7 @@ public class BlackJack
             dealer.addCard( hiddenCard ) ;
             while ( dealerTurn == true )
                 {
-                System.out.println( dealer.getHand( 0 ).toString() ) ;
+                System.out.println( "dealer hand: " + dealer.getHand( 0 ).toString() ) ;
                 if ( dealer.getHand( 0 ).calculateScore() < 17 )
                     {
                     dealer.hit( 0, gameDeck.draw() ) ;
@@ -281,22 +284,51 @@ public class BlackJack
                 for ( int ii = 0 ; ii < pl.get( i ).getHands().size() ; ii++ )
                     {
                     if ( pl.get( i ).getHand( ii ).calculateScore() >
-                         dealer.getHand( 0 ).calculateScore() )
+                         dealer.getHand( 0 ).calculateScore() &&
+                         pl.get( i ).getHand( ii ).calculateScore() <= 21 )
                         {
                         if ( pl.get( i ).getHand( ii ).calculateScore() == 21 )
                             {
+                            System.out.println( pl.get( i ).getName() + "has won " +
+                                                (int) ( pl.get( i ).getBet( ii ) * 1.5 ) +
+                                                " points" ) ;
                             pl.get( i )
                               .increaseBalance( (int) ( pl.get( i ).getBet( ii ) +
                                                         pl.get( i ).getBet( ii ) * 1.5 ) ) ;
+                            System.out.println( pl.get( i ).getName() + "has " +
+                                                pl.get( i ).getBalance() + " points remainig " ) ;
 
                             }
                         else
                             {
+                            System.out.println( pl.get( i ).getName() + "has won " +
+                                                (int) ( pl.get( i ).getBet( ii ) ) + " points" ) ;
+
                             pl.get( i )
                               .increaseBalance( (int) ( pl.get( i ).getBet( ii ) +
                                                         pl.get( i ).getBet( ii ) ) ) ;
+                            System.out.println( pl.get( i ).getName() + "has " +
+                                                pl.get( i ).getBalance() + " points remaining " ) ;
 
                             }
+
+                        }
+                    else if ( pl.get( i ).getHand( ii ).calculateScore() ==
+                              dealer.getHand( 0 ).calculateScore() &&
+                              pl.get( i ).getHand( ii ).calculateScore() <= 21 )
+                        {
+                        System.out.println( pl.get( i ).getName() + "has tied " ) ;
+                        pl.get( i ).increaseBalance( (int) ( pl.get( i ).getBet( ii ) ) ) ;
+                        System.out.println( pl.get( i ).getName() + "has " +
+                                            pl.get( i ).getBalance() + " points remaining " ) ;
+
+                        }
+                    else
+                        {
+                        System.out.println( pl.get( i ).getName() + "has lost " +
+                                            pl.get( i ).getBet( ii ) ) ;
+                        System.out.println( pl.get( i ).getName() + "has " +
+                                            pl.get( i ).getBalance() + " points remaining " ) ;
 
                         }
 
@@ -314,11 +346,46 @@ public class BlackJack
 
                 }
 
-            gameDeck.addCards( dealer.getHand( 0 ).getCards() ) ;
+            for ( int i = 0 ; i < pl.size() ; i++ )
+                {
 
+                pl.get( i ).resetHand() ;
+
+                }
+
+            gameDeck.addCards( dealer.getHand( 0 ).getCards() ) ;
+            dealer.resetHand() ;
             for ( int i = pl.size() - 1 ; i >= 0 ; i-- )
                 {
                 if ( pl.get( i ).getBalance() <= 0 )
+                    {
+                    System.out.println( pl.get( i ).getName() +
+                                        "has run out of money and will be removed from the game" ) ;
+                    pl.remove( i ) ;
+
+                    }
+
+                }
+
+            for ( int i = pl.size() - 1 ; i >= 0 ; i-- )
+                {
+                System.out.println( pl.get( i ).getName() +
+                                    ", would you like to leave the game?" ) ;
+                String answer = "T" ;
+                firstTime = true ;
+                while ( !answer.equals( "y" ) && !answer.equals( "n" ) )
+                    {
+                    if ( !firstTime )
+                        {
+                        System.out.println( "Invalid player input" ) ;
+
+                        }
+
+                    answer = Game.nextLine() ;
+
+                    }
+
+                if ( answer.equals( "y" ) )
                     {
                     pl.remove( i ) ;
 
@@ -326,8 +393,32 @@ public class BlackJack
 
                 }
 
-            }
+            String remainingPlayers = "the remaing players are: " ;
+            for ( int i = 0 ; i < pl.size() ; i++ )
+                {
+                remainingPlayers = remainingPlayers + pl.get( i ).getName() ;
 
+                }
+
+            if ( pl.size() == 0 )
+                {
+                System.out.println( "No more players remain, game has ended" ) ;
+
+                }
+            else
+                {
+                System.out.println( remainingPlayers ) ;
+
+                }
+
+            if ( pl.size() <= 0 )
+                {
+                gamePlay = false ;
+
+                }
+
+            }
+        System.out.println("Thanks for playing");
         }
 
     }
